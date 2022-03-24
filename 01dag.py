@@ -20,7 +20,7 @@ def _process(ts, ti):
 
 
 def _report(ti):
-    info = ti.xcom_pull(key=None, task_ids=['download', 'processedfile'])[0]
+    info = ti.xcom_pull(key=None, task_ids=['download', 'processedfile'])  # [0]
     print(f"Report: {info}")
 
 
