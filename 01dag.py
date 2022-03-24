@@ -11,6 +11,8 @@ def _download(ti):
 
 def _clean(ti):
     fileinfo = ti.xcom_pull(key='fileinfo', task_ids=['download'])[0]
+    print(fileinfo)
+    print('fileinfo2 :', ti.xcom_pull(key='fileinfo', task_ids=['download']))
     print(f"clean the data:")
 
 
@@ -20,7 +22,7 @@ def _process(ts, ti):
 
 
 def _report(ti):
-    info = ti.xcom_pull(key=None, task_ids=['download', 'processedfile'])  # [0]
+    info = ti.xcom_pull(key=None, task_ids=['download', 'processedfile'])[0]
     print(f"Report: {info}")
 
 
