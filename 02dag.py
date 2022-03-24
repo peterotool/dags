@@ -21,7 +21,7 @@ def _clean(ti):
     print('xcom_arg :', xcom_arg['fileinfo'])
 
     print(download.output['file'])
-    print(download.output.get('file'))
+    # print(download.output.get('file'))
 
     print(f"clean the data:")
 
