@@ -2,6 +2,9 @@ from airflow import DAG
 from airflow.operators.python import PythonOperator
 from airflow.operators.bash import BashOperator
 
+from airflow.models.xcom_arg import XComArg
+# Class that represents a XCom push from a previous operator. Defaults to "return_value" as only key.
+
 from datetime import datetime
 
 
@@ -29,13 +32,16 @@ def _report(ti):
     print(f"Report: {info}")
 
 
-with DAG("my_dag", start_date=datetime(2021, 1, 1),
+with DAG("my_dag_xcom_arg", start_date=datetime(2021, 1, 1),
          schedule_interval="@daily", catchup=False) as dag:
 
     download = PythonOperator(
         task_id="download",
         python_callable=_download
     )
+
+    xcom_arg = XComArg(download)
+    print('xcom_arg :', xcom_arg)
 
     clean = PythonOperator(
         task_id="clean",
