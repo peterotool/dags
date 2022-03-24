@@ -66,4 +66,4 @@ with DAG("my_dag_xcom_arg", start_date=datetime(2021, 1, 1),
     #     python_callable=_report
     # )
 
-    # download >> clean  # >> process >> report
+    download >> clean  # >> process >> report
