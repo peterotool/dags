@@ -12,18 +12,23 @@ def _download(ti):
     ti.xcom_push(key='fileinfo', value={'path': '/usr/local/airflow', 'filename': 'data.csv'})
 
 
-def _clean(ti):
+def _clean(path, filename):
+
+    print('path :', path)
+    print('filename:', filename)
+
+    print(ti.xcom_pull(key='fileinfo', task_ids=['download']))
     fileinfo = ti.xcom_pull(key='fileinfo', task_ids=['download'])[0]
 
-    print('fileinfo:', fileinfo)
+    print(f"clean the data:" {fileinfo['filename']}")
 
-    xcom_arg = XComArg(download)
-    print('xcom_arg :', xcom_arg['fileinfo'])
+    # xcom_arg = XComArg(download)
+    # print(xcom_arg['fileinfo'])
 
-    print(download.output['file'])
+    # print(download.output['file'])
     # print(download.output.get('file'))
 
-    print(f"clean the data:")
+    #print(f"clean the data:")
 
 
 # def _process(ts, ti):
@@ -35,18 +40,18 @@ def _clean(ti):
 #     info = ti.xcom_pull(key=None, task_ids=['download', 'processedfile'])[0]
 #     print(f"Report: {info}")
 
-
 with DAG("my_dag_xcom_arg", start_date=datetime(2021, 1, 1),
          schedule_interval="@daily", catchup=False) as dag:
 
-    download = PythonOperator(
+    download_output = PythonOperator(
         task_id="download",
         python_callable=_download
-    )
+    ).output  # is not an Operator but and XComArg object
 
     clean = PythonOperator(
         task_id="clean",
-        python_callable=_clean
+        python_callable=_clean,
+        op_kwargs=download_output
     )
 
     # process = PythonOperator(
@@ -59,4 +64,4 @@ with DAG("my_dag_xcom_arg", start_date=datetime(2021, 1, 1),
     #     python_callable=_report
     # )
 
-    download >> clean  # >> process >> report
+    # download >> clean  # >> process >> report
