@@ -41,21 +41,21 @@ with DAG("my_dag_xcom_arg", start_date=datetime(2021, 1, 1),
     )
 
     xcom_arg = XComArg(download)
-    print('xcom_arg :', xcom_arg)
+    print('xcom_arg :', xcom_arg['fileinfo'])
 
-    clean = PythonOperator(
-        task_id="clean",
-        python_callable=_clean
-    )
+    # clean = PythonOperator(
+    #     task_id="clean",
+    #     python_callable=_clean
+    # )
 
-    process = PythonOperator(
-        task_id="process",
-        python_callable=_process
-    )
+    # process = PythonOperator(
+    #     task_id="process",
+    #     python_callable=_process
+    # )
 
-    report = PythonOperator(
-        task_id="report",
-        python_callable=_report
-    )
+    # report = PythonOperator(
+    #     task_id="report",
+    #     python_callable=_report
+    # )
 
-    download >> clean >> process >> report
+    # download >> clean >> process >> report
