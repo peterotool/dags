@@ -6,7 +6,7 @@ from datetime import datetime
 
 
 def _download(ti):
-    ti.xcom_push(key='fileinfo', value={'path': '/usr/local/airflow'}, 'filename': 'data.csv')
+    ti.xcom_push(key='fileinfo', value={'path': '/usr/local/airflow', 'filename': 'data.csv'})
 
 
 def _clean(ti):
