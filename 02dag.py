@@ -20,7 +20,7 @@ def _clean(path, filename):
     print(ti.xcom_pull(key='fileinfo', task_ids=['download']))
     fileinfo = ti.xcom_pull(key='fileinfo', task_ids=['download'])[0]
 
-    print(f"clean the data:" {fileinfo['filename']}")
+    print(f"clean the data: {fileinfo['filename']}")
 
     # xcom_arg = XComArg(download)
     # print(xcom_arg['fileinfo'])

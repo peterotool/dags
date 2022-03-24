@@ -16,7 +16,7 @@ def _clean(ti):
 
     print('fileinfo2:', ti.xcom_pull(key='fileinfo', task_ids=['download']))
     # [{'path': '/usr/local/airflow', 'filename': 'data.csv'}]
-    print(f"clean the data:" {fileinfo['filename']}")
+    print(f"clean the data: {fileinfo['filename']}")
 
 
 def _process(ts, ti):
