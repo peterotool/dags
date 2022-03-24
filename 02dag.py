@@ -12,7 +12,7 @@ def _download(ti):
     ti.xcom_push(key='fileinfo', value={'path': '/usr/local/airflow', 'filename': 'data.csv'})
 
 
-def _clean(path, filename):
+def _clean(download_output):
 
     pass
 
@@ -66,4 +66,4 @@ with DAG("my_dag_xcom_arg", start_date=datetime(2021, 1, 1),
     #     python_callable=_report
     # )
 
-    download_output >> clean  # >> process >> report
+    # download_output >> clean  # >> process >> report
