@@ -8,18 +8,22 @@ from airflow.models.xcom_arg import XComArg
 from datetime import datetime
 
 
-def _download(ti):
-    ti.xcom_push(key='fileinfo',
-                 value={'path': '/usr/local/airflow', 'filename': 'data.csv'}
-                 )
+# def _download(ti):
+#     ti.xcom_push(key='fileinfo',
+#                  value={'path': '/usr/local/airflow', 'filename': 'data.csv'}
+#                  )
+
+
+def _download():
+    return {'path': '/usr/local/airflow', 'filename': 'data.csv'}
 
 
 def _clean(path, filename):
 
-    # print('path :', path)
-    # print('filename:', filename)
+    print('path :', path)
+    print('filename:', filename)
 
-    pass
+    # pass
 
     # print(ti.xcom_pull(key='fileinfo', task_ids=['download']))
     # fileinfo = ti.xcom_pull(key='fileinfo', task_ids=['download'])[0]
