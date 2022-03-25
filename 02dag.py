@@ -59,7 +59,7 @@ with DAG("my_dag_xcom_arg", start_date=datetime(2021, 1, 1),
     clean = PythonOperator(
         task_id="clean",
         python_callable=_clean,
-        op_kwargs=(download_output.output,)
+        op_kwargs=download_output.output
     )
 
     # process = PythonOperator(
