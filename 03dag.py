@@ -3,10 +3,7 @@ from airflow.models import DAG
 from airflow import DAG
 from airflow.operators.python import get_current_context
 from airflow.decorators import task
-
-
 from airflow.models.xcom_arg import XComArg
-
 from datetime import datetime
 
 
