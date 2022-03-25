@@ -44,6 +44,7 @@ with DAG("dag04", start_date=datetime(2021, 1, 1),
 
     processed_files = []
     for process_task in range(1, 4):
-        processed_files.append(cleaning >> process()['processed_files'])
+        # processed_files.append(cleaning >> process()['processed_files'])
+        processed_files.append(cleaning >> process())
 
     report(fileinfo, processed_files)
