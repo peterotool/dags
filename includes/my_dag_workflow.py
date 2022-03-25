@@ -1,3 +1,6 @@
+from airflow.decorators import task
+from airflow.operators.python import get_current_context
+
 
 @task(multiple_outputs=True)
 def download():
