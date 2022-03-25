@@ -1,8 +1,8 @@
 from airflow.utils.dates import days_ago
 from airflow.models import DAG
 from airflow import DAG
-from airflow.operators.python import PythonOperator
-from airflow.decorators import task, get_current_context
+from airflow.operators.python import get_current_context
+from airflow.decorators import task
 
 
 from airflow.models.xcom_arg import XComArg
