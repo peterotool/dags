@@ -1,18 +1,45 @@
-from airflow.operators.python import PythonOperator
-from airflow.models import DAG
 from airflow.utils.dates import days_ago
-with DAG(
-    "xcom_args_are_awesome",
-    default_args={'owner': 'airflow'},
-    start_date=days_ago(2),
-    schedule_interval=None,
-) as dag:
-    numbers = PythonOperator(
-        task_id="numbers",
-        python_callable=lambda: list(range(10))
-    )
-    show = PythonOperator(
-        task_id="show",
-        python_callable=lambda x: print(x),
-        op_args=(numbers.output,)
-    )
+from airflow.models import DAG
+from airflow import DAG
+from airflow.operators.python import PythonOperator
+from airflow.decorators import task, get_current_context
+
+
+from airflow.models.xcom_arg import XComArg
+
+from datetime import datetime
+
+
+@task
+def download():
+    return {'path': '/usr/local/airflow', 'filename': 'data.csv'}
+
+
+@task
+def clean(fileinfo):
+    print('path :', fileinfo['path'])
+    print('filename:', fileinfo['filename'])
+
+
+@task
+def process():
+    #ti.xcom_push(key='processedfile', value={'timestamp': ts})
+    context = get_current_context()
+    ti = context['ti']
+    ts = context['ts']
+    print('process the data')
+
+
+# @task
+# def report(ti):
+#     info = ti.xcom_pull(key=None, task_ids=['download', 'processedfile'])[0]
+#     print(f"Report: {info}")
+
+
+with DAG("my_dag_xcom_arg", start_date=datetime(2021, 1, 1),
+         schedule_interval="@daily", catchup=False) as dag:
+
+    cleaning = clean(download())
+
+    for process_task in range(1, 4):
+        cleaning >> process()
