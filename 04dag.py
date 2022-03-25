@@ -31,10 +31,20 @@ def process():
     print(f"task timestamp: {ts}")
 
 
-with DAG("dag03", start_date=datetime(2021, 1, 1),
+@task
+def report(fileinfo, processed_files):
+    print(f"fileinfo: {fileinfo}")
+    print(f"task processed_files: {processed_files}")
+
+
+with DAG("dag04", start_date=datetime(2021, 1, 1),
          schedule_interval="@daily", catchup=False) as dag:
 
-    cleaning = clean(download())
+    fileinfo = download()
+    cleaning = clean(fileinfo['path'])
 
+    processed_files = []
     for process_task in range(1, 4):
-        cleaning >> process()
+        processed_files.aappend(cleaning >> process()['processed_files'])
+
+    report(fileinfo, processed_files)
