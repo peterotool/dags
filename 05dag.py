@@ -1,9 +1,6 @@
 from airflow import DAG
-
 from includes.my_dag_workflow import download, clean, process, report
-
 from airflow.models.xcom_arg import XComArg
-
 from datetime import datetime
 
 
