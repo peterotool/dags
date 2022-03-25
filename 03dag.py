@@ -10,7 +10,7 @@ from airflow.models.xcom_arg import XComArg
 from datetime import datetime
 
 
-@task
+@task(multiple_outputs=True)
 def download():
     return {'path': '/usr/local/airflow', 'filename': 'data.csv'}
 
@@ -27,7 +27,8 @@ def process():
     context = get_current_context()
     ti = context['ti']
     ts = context['ts']
-    print('process the data')
+    print(f"task id {ti}")
+    print(f"task timestamp {ts}")
 
 
 with DAG("dag03", start_date=datetime(2021, 1, 1),
