@@ -14,7 +14,6 @@ def clean(path):
 
 @task(task_id="spark")  # override task_id name
 def process():
-    #ti.xcom_push(key='processedfile', value={'timestamp': ts})
     context = get_current_context()
     ti = context['ti']
     ts = context['ts']
