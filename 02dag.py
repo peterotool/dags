@@ -16,8 +16,8 @@ def _download(ti):
 
 def _clean(path, filename):
 
-    print('path :', path)
-    print('filename:', filename)
+    # print('path :', path)
+    # print('filename:', filename)
 
     pass
 
@@ -50,12 +50,12 @@ with DAG("my_dag_xcom_arg", start_date=datetime(2021, 1, 1),
     download_output = PythonOperator(
         task_id="download",
         python_callable=_download
-    ).output  # is not an Operator but and XComArg object
+    )  # is not an Operator but and XComArg object
 
     clean = PythonOperator(
         task_id="clean",
         python_callable=_clean,
-        op_kwargs=download_output
+        op_kwargs=(download_output.output,)
     )
 
     # process = PythonOperator(
