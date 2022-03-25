@@ -1,3 +1,4 @@
+# https://www.youtube.com/watch?v=DljJg_lXBYQ
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 from airflow.operators.bash import BashOperator
