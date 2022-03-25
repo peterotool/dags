@@ -19,7 +19,7 @@ def _clean(path, filename):
     print('filename:', filename)
 
 
-with DAG("my_dag_xcom_arg", start_date=datetime(2021, 1, 1),
+with DAG("dag02", start_date=datetime(2021, 1, 1),
          schedule_interval="@daily", catchup=False) as dag:
     # minuto 26
     download_output = PythonOperator(

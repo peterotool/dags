@@ -29,7 +29,7 @@ def _report(ti):
     print(f"Report: {info}")
 
 
-with DAG("my_dag", start_date=datetime(2021, 1, 1),
+with DAG("dag01", start_date=datetime(2021, 1, 1),
          schedule_interval="@daily", catchup=False) as dag:
 
     download = PythonOperator(

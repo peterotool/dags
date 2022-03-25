@@ -30,13 +30,7 @@ def process():
     print('process the data')
 
 
-# @task
-# def report(ti):
-#     info = ti.xcom_pull(key=None, task_ids=['download', 'processedfile'])[0]
-#     print(f"Report: {info}")
-
-
-with DAG("my_dag_xcom_arg", start_date=datetime(2021, 1, 1),
+with DAG("dag03", start_date=datetime(2021, 1, 1),
          schedule_interval="@daily", catchup=False) as dag:
 
     cleaning = clean(download())
