@@ -16,9 +16,8 @@ def download():
 
 
 @task
-def clean(fileinfo):
-    print('path :', fileinfo['path'])
-    print('filename:', fileinfo['filename'])
+def clean(path):
+    print('path :', path)
 
 
 @task
