@@ -7,7 +7,7 @@ with DAG("test_task", start_date=datetime(2021, 1, 1),
 
     bash_task = BashOperator(
         task_id="bash_task1",
-        bash_command='gcloud auth activate-service-account --key-file=datalake-data-manager.json --project=emplipigas-datalake',
+        bash_command="gcloud auth activate-service-account --key-file='./datalake-data-manager.json' --project=emplipigas-datalake",
     )
     bash_task = BashOperator(
         task_id="bash_task2",
